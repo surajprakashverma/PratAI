@@ -1,5 +1,6 @@
 import truststore
 truststore.inject_into_ssl()
+
 """
 Email Sender (via Resend HTTPS API)
 --------------------------------------
@@ -19,6 +20,15 @@ RESEND_API_URL = "https://api.resend.com/emails"
 
 def get_recipient_list() -> list:
     return [email.strip() for email in RECIPIENT_EMAILS.split(",") if email.strip()]
+
+
+def debug_recipient_value() -> dict:
+    return {
+        "raw_value": repr(RECIPIENT_EMAILS),
+        "parsed_list": get_recipient_list(),
+        "api_key_prefix": RESEND_API_KEY[:6] if RESEND_API_KEY else "(empty)",
+        "api_key_length": len(RESEND_API_KEY),
+    }
 
 
 def send_newsletter(html_body: str, subject: str = None) -> dict:
