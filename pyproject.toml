@@ -8,7 +8,7 @@ dependencies = [
     "langchain-google-genai==4.4.0",
     "langchain-core==1.6.3",
     "python-dotenv==1.2.3",
-    "truststore==0.10.4",
+    "truststore==0.10.4"
 ]
 
 [tool.vercel]
