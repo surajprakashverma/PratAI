@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/send_newsletter",
+      "schedule": "0 7 * * 3"
+    }
+  ]
+}
