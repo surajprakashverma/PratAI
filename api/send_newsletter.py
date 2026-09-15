@@ -18,7 +18,7 @@ from http.server import BaseHTTPRequestHandler
 
 from pipeline import generate_verified_newsletter
 from composer import compose_newsletter_html
-from sender import send_newsletter
+from sender import send_newsletter, debug_recipient_value
 
 
 def run_newsletter_job():
@@ -52,6 +52,14 @@ def run_newsletter_job():
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
+        if "debug=1" in (self.path or ""):
+            result = debug_recipient_value()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(result, indent=2).encode("utf-8"))
+            return
+
         try:
             result = run_newsletter_job()
             status_code = 200 if result.get("success") else 500
